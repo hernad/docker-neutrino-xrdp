@@ -8,7 +8,7 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         pulseaudio 
     
 
-COPY build/X11rpd /opt/X11rdp
+ADD X11rdp.tar.gz /opt
 
 EXPOSE 3389
 RUN echo 'ALL ALL=NOPASSWD:ALL' > /etc/sudoers.d/allSudo && \
