@@ -1,7 +1,8 @@
-#FROM debian:jessie
 FROM ubuntu
 
-MAINTAINER Csaba Marosi "4bea6c869366227b879ffe4abad50c@gmail.com"
+MAINTAINER Ernad Husremovic "hernad@bring.out.ba"
+
+# thank you Csaba Marosi "4bea6c869366227b879ffe4abad50c@gmail.com"
 
 RUN apt-get update && \
     apt-get build-dep -y pulseaudio && \
@@ -14,9 +15,10 @@ RUN apt-get update && \
         rxvt-unicode-lite ratpoison \
         libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
         xfonts-utils \
-    libpulse-dev libjson0-dev libsndfile1-dev libspeex-dev libspeexdsp-dev \
+        libpulse-dev libjson0-dev libsndfile1-dev libspeex-dev libspeexdsp-dev \
         make autoconf automake libtool pkg-config \
-        wget bzip2 xsltproc flex bison g++ gettext libxml-sax-expat-perl libxml2-dev
+        wget bzip2 xsltproc flex bison g++ gettext \
+        libxml-sax-expat-perl libxml2-dev python-libxml2 libfuse-dev libdrm-dev
 
 ADD build_1.sh /
 
