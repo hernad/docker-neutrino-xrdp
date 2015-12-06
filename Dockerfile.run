@@ -6,9 +6,17 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
         xfonts-utils \
         pulseaudio 
-    
 
+ADD usr_local.tar.gz /usr/local    
 ADD X11rdp.tar.gz /opt
+ADD etc_xrdp.tar.gz /etc
+ADD pulseaudio_module-xrdp.tar.gz /usr/lib/pulse-4.0/modules 
+
+RUN cp /opt/X11rdp/xrdp_etc/init.d/* /etc/init.d/
+RUN cp /opt/X11rdp/xrdp_etc/pam.d/* /etc/pam.d/
+
+RUN echo "load-module module-xrdp-sink" >> /etc/pulse/default.pa
+RUN echo "load-module module-xrdp-source" >> /etc/pulse/default.pa
 
 EXPOSE 3389
 RUN echo 'ALL ALL=NOPASSWD:ALL' > /etc/sudoers.d/allSudo && \
