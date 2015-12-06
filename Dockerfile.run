@@ -5,7 +5,7 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         rxvt-unicode-lite ratpoison \
         libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
         xfonts-utils \
-        pulseaudio 
+        pulseaudio pulseaudio-utils cmus 
 
 ADD usr_local.tar.gz /usr/local    
 ADD X11rdp.tar.gz /opt
@@ -18,9 +18,10 @@ RUN cp /opt/X11rdp/xrdp_etc/pam.d/* /etc/pam.d/
 RUN echo "load-module module-xrdp-sink" >> /etc/pulse/default.pa
 RUN echo "load-module module-xrdp-source" >> /etc/pulse/default.pa
 
+RUN sed -i -e 's/usr\/bin/bin/g' /etc/init.d/dbus
+
 EXPOSE 3389
 RUN echo 'ALL ALL=NOPASSWD:ALL' > /etc/sudoers.d/allSudo && \
     echo 'root:p' | chpasswd
 
-#TODO: there should be a better method than this!
 CMD ["bash", "-c", "sudo /etc/init.d/xrdp.sh start && bash"]
