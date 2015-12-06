@@ -20,6 +20,9 @@ RUN echo "load-module module-xrdp-source" >> /etc/pulse/default.pa
 
 RUN sed -i -e 's/usr\/bin/bin/g' /etc/init.d/dbus
 
+#RUN echo "pulseaudio --daemon" >> /root/.profile
+#RUN echo "pacmd list-sinks" >> /root/.profile
+
 EXPOSE 3389
 RUN echo 'ALL ALL=NOPASSWD:ALL' > /etc/sudoers.d/allSudo && \
     echo 'root:p' | chpasswd
