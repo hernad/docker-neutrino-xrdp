@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cp .dockerignore.build .dockerignore
-docker build --no-cache -f Dockerfile.build -t build_xrdp .
+docker build -f Dockerfile.build -t build_xrdp .
 
 if [ "$1" == "bash" ]; then
   cmd=/bin/bash
