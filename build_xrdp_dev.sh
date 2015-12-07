@@ -1,3 +1,6 @@
+#!/bin/bash
+
+cp .dockerignore.dev .dockerignore
 docker build -f Dockerfile.build -t build_xrdp .
 
 if [ "$1" == "bash" ]; then
