@@ -34,3 +34,6 @@ tar -czf /opt/usr_local.tar.gz .
 
 cd /etc
 tar -czf /opt/etc_xrdp.tar.gz xrdp
+
+cd /opt
+tar -czf /opt/X11rdp.tar.gz --exclude="*/test/*" --exclude="*.a" X11rdp
