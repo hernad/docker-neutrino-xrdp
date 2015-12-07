@@ -23,16 +23,21 @@ touch pulseaudio_module-xrdp.tar.gz
 docker run $cmd_switch --name neutrino-xrdp-dev \
    -v $(pwd)/build/xrdp:/opt/xrdp \
    -v $(pwd)/build/X11rdp:/opt/X11rdp \
-   -v $(pwd)/usr_local.tar.gz:/opt/usr_local.tar.gz \
-   -v $(pwd)/etc_xrdp.tar.gz:/opt/etc_xrdp.tar.gz \
-   -v $(pwd)/pulseaudio_module-xrdp.tar.gz:/opt/pulseaudio_module-xrdp.tar.gz \
    neutrino-xrdp-dev $cmd
+
+FILE=pulseaudio_module-xrdp.tar.gz
+docker cp build_xrdp:/opt/$FILE $FILE
+
+FILE=etc_xrdp.tar.gz
+docker cp build_xrdp:/opt/$FILE $FILE
+
+FILE=usr_local.tar.gz
+docker cp build_xrdp:/opt/$FILE $FILE
+
+docker rm -f neutrino-xrdp-dev
 
 cd build
 tar -cvzf ../X11rdp.tar.gz --exclude="*/test/*" --exclude="*.a" X11rdp
 cd ..
 
-#sudo chown docker etc_xrdp.tar.gz
-#sudo chown docker usr_local.tar.gz
-#sudo chown docker pulseaudio_module-xrdp.tar.gz 
 
