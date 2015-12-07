@@ -2,7 +2,7 @@ FROM ubuntu
 
 RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         sudo git vim ca-certificates \
-        rxvt-unicode-lite ratpoison \
+        ratpoison \
         libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
         x11-xkb-utils xfonts-utils \
         pulseaudio pulseaudio-utils cmus \
@@ -37,9 +37,9 @@ RUN echo "LANG=bs_BA.UTF-8" >> /etc/default/locale &&\
 RUN echo "export LANG=bs_BA.UTF-8" >> /root/.bashrc &&\
     echo "export LC_ALL=bs_BA.UTF-8" >> /root/.bashrc &&\
     echo "export LC_MESSAGES=POSIX" >> /root/.bashrc &&\
-    echo "[ `ps -e | grep pulseaudio` ] && pulseaudio --start" >> /root/.bashrc &&\
-    echo "[ \"\$DISPLAY\" ] && setxkbmap -layout bs,us -option grp:alt_shift_toggle" >> /root/.bashrc &&\
-    echo "[ \"\$DISPLAY\" ] && echo alt+shift: switch bs/us keyboard layout" >> /root/.bashrc &&\
+    echo "[ \"\$DISPLAY\" ] && ( ( pacmd list-sinks | grep xrdp-sink > /dev/null ) || ( echo pulseaudio start && pulseaudio --daemon --disallow-exit=1 2> /dev/null) )" >> /root/.bashrc &&\
+    echo "[ \"\$DISPLAY\" ] && setxkbmap -layout us,bs -option grp:alt_shift_toggle" >> /root/.bashrc &&\
+    echo "[ \"\$DISPLAY\" ] && echo SHIFT+alt: switch to BS/US keyboard layout" >> /root/.bashrc &&\
     echo "PATH=\$PATH:/root/bin" >> /root/.bashrc
 
 
