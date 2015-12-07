@@ -4,8 +4,11 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         sudo git vim ca-certificates \
         rxvt-unicode-lite ratpoison \
         libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
-        xfonts-utils \
-        pulseaudio pulseaudio-utils cmus 
+        x11-xkb-utils xfonts-utils \
+        pulseaudio pulseaudio-utils cmus \
+        curl htop \
+        locales language-pack-bs \
+        lxterminal 
 
 ADD usr_local.tar.gz /usr/local    
 ADD X11rdp.tar.gz /opt
@@ -15,13 +18,34 @@ ADD pulseaudio_module-xrdp.tar.gz /usr/lib/pulse-4.0/modules
 RUN cp /opt/X11rdp/xrdp_etc/init.d/* /etc/init.d/
 RUN cp /opt/X11rdp/xrdp_etc/pam.d/* /etc/pam.d/
 
-RUN echo "load-module module-xrdp-sink" >> /etc/pulse/default.pa
-RUN echo "load-module module-xrdp-source" >> /etc/pulse/default.pa
+RUN cd /tmp && curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb ;\
+    dpkg -i '/tmp/google-chrome-stable_current_amd64.deb' ; apt-get install -f -y
+
+RUN echo "load-module module-xrdp-sink" >> /etc/pulse/default.pa  &\
+    echo "load-module module-xrdp-source" >> /etc/pulse/default.pa
 
 RUN sed -i -e 's/usr\/bin/bin/g' /etc/init.d/dbus
 
-#RUN echo "pulseaudio --daemon" >> /root/.profile
-#RUN echo "pacmd list-sinks" >> /root/.profile
+#RUN echo "pulseaudio --daemon" >> /root/.profile &&\
+#    echo "pacmd list-sinks" >> /root/.profile
+
+RUN echo "LANG=bs_BA.UTF-8" >> /etc/default/locale &&\
+    echo "LC_ALL=bs_BA.UTF-8" >> /etc/default/locale &&\
+    echo "LC_MESSAGES=POSIX" >> /etc/default/locale
+
+
+RUN echo "export LANG=bs_BA.UTF-8" >> /root/.bashrc &&\
+    echo "export LC_ALL=bs_BA.UTF-8" >> /root/.bashrc &&\
+    echo "export LC_MESSAGES=POSIX" >> /root/.bashrc &&\
+    echo "[ `ps -e | grep pulseaudio` ] && pulseaudio --start" >> /root/.bashrc &&\
+    echo "[ \"\$DISPLAY\" ] && setxkbmap -layout bs,us -option grp:alt_shift_toggle" >> /root/.bashrc &&\
+    echo "[ \"\$DISPLAY\" ] && echo alt+shift: switch bs/us keyboard layout" >> /root/.bashrc &&\
+    echo "PATH=\$PATH:/root/bin" >> /root/.bashrc
+
+
+RUN mkdir -p /root/bin
+ADD browser /root/bin/
+ADD .xinitrc /root/
 
 EXPOSE 3389
 RUN echo 'ALL ALL=NOPASSWD:ALL' > /etc/sudoers.d/allSudo && \

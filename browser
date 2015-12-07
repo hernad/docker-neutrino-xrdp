@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/usr/bin/google-chrome --user-data-dir=/data/browser $@
+
+
