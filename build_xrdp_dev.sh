@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cp .dockerignore.build .dockerignore
-docker build -f Dockerfile.build -t build_xrdp .
+docker build -f Dockerfile.build -t neutrino-xrdp-dev .
 
 if [ "$1" == "bash" ]; then
   cmd=/bin/bash
@@ -14,19 +14,19 @@ fi
 [ ! -d $(pwd)/build/xrdp ] && mkdir -p $(pwd)/build/xrdp
 [ ! -d $(pwd)/build/X11rdp ] && mkdir -p $(pwd)/build/X11rdp
 
-docker rm -f build_xrdp
+docker rm -f neutrino-xrdp-dev
 
 touch usr_local.tar.gz
 touch etc_xrdp.tar.gz
 touch pulseaudio_module-xrdp.tar.gz 
 
-docker run $cmd_switch --name build_xrdp \
+docker run $cmd_switch --name neutrino-xrdp-dev \
    -v $(pwd)/build/xrdp:/opt/xrdp \
    -v $(pwd)/build/X11rdp:/opt/X11rdp \
    -v $(pwd)/usr_local.tar.gz:/opt/usr_local.tar.gz \
    -v $(pwd)/etc_xrdp.tar.gz:/opt/etc_xrdp.tar.gz \
    -v $(pwd)/pulseaudio_module-xrdp.tar.gz:/opt/pulseaudio_module-xrdp.tar.gz \
-   build_xrdp $cmd
+   neutrino-xrdp-dev $cmd
 
 cd build
 tar -cvzf ../X11rdp.tar.gz --exclude="*/test/*" --exclude="*.a" X11rdp
