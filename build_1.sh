@@ -27,6 +27,7 @@ cd /opt/xrdp/xorg/X11R7.6 && \
     ln -s /opt/X11rdp/bin/X11rdp /usr/local/bin/X11rdp && \
     cp /etc/xrdp/xrdp* /opt/X11rdp/xrdp_etc/init.d/
 
+
 cd /usr/local
 tar -czf /opt/usr_local.tar.gz .
 

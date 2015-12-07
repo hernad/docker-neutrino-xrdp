@@ -1,8 +1,0 @@
-build
-build/X11rdp
-build/xrdp
-
-data
-data/music
-*.tar.gz
-.git

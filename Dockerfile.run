@@ -10,8 +10,11 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         locales language-pack-bs \
         lxterminal 
 
+RUN echo "add tar.gz's from build-xrdp image"
 ADD usr_local.tar.gz /usr/local    
 ADD X11rdp.tar.gz /opt
+RUN ls /opt/X11rdp/xrdp_etc/init.d
+RUN ls /opt/X11rdp/xrdp_etc/pam.d
 ADD etc_xrdp.tar.gz /etc
 ADD pulseaudio_module-xrdp.tar.gz /usr/lib/pulse-4.0/modules 
 
