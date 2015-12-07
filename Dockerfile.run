@@ -44,8 +44,11 @@ RUN echo "export LANG=bs_BA.UTF-8" >> /root/.bashrc &&\
 
 
 RUN mkdir -p /root/bin
+RUN mkdir -p /data/music
+RUN mkdir -p /data/documents
 RUN mkdir -p /data/conf/browser
-ADD browser /root/bin/
+
+ADD browser  /root/bin/
 ADD .xinitrc /root/
 
 EXPOSE 3389
