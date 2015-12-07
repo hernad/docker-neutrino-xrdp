@@ -44,6 +44,7 @@ RUN echo "export LANG=bs_BA.UTF-8" >> /root/.bashrc &&\
 
 
 RUN mkdir -p /root/bin
+RUN mkdir -p /data/conf/browser
 ADD browser /root/bin/
 ADD .xinitrc /root/
 

@@ -3,6 +3,6 @@
 
 [ "$DISPLAY" ] && ( ( pacmd list-sinks | grep xrdp-sink > /dev/null ) || ( echo pulseaudio start && pulseaudio --daemon --disallow-exit=1 2> /dev/null ) )
 
-/usr/bin/google-chrome --user-data-dir=/data/browser $@
+/usr/bin/google-chrome --user-data-dir=/data/conf/browser $@
 
 
