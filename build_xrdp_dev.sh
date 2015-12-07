@@ -29,7 +29,7 @@ cd build
 tar -cvzf ../X11rdp.tar.gz --exclude="*/test/*" --exclude="*.a" X11rdp
 cd ..
 
-sudo chown docker etc_xrdp.tar.gz
-sudo chown docker usr_local.tar.gz
-sudo chown docker pulseaudio_module-xrdp.tar.gz 
+#sudo chown docker etc_xrdp.tar.gz
+#sudo chown docker usr_local.tar.gz
+#sudo chown docker pulseaudio_module-xrdp.tar.gz 
 
