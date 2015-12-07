@@ -23,9 +23,10 @@ xrdp-keygen xrdp auto && \
     cp instfiles/pam.d/xrdp-sesman.other /opt/X11rdp/xrdp_etc/pam.d/xrdp-sesman
 
 cd /opt/xrdp/xorg/X11R7.6 && \
-    ./buildx.sh /opt/X11rdp && \
-    ln -s /opt/X11rdp/bin/X11rdp /usr/local/bin/X11rdp && \
-    cp /etc/xrdp/xrdp* /opt/X11rdp/xrdp_etc/init.d/
+    ./buildx.sh /opt/X11rdp 
+
+ln -s /opt/X11rdp/bin/X11rdp /usr/local/bin/X11rdp && \
+cp /etc/xrdp/xrdp* /opt/X11rdp/xrdp_etc/init.d/
 
 
 cd /usr/local
