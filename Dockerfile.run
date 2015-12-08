@@ -4,7 +4,7 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         sudo git vim ca-certificates \
         ratpoison \
         libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
-        x11-xkb-utils xfonts-utils \
+        dbus-x11 x11-xkb-utils xfonts-utils \
         pulseaudio pulseaudio-utils cmus \
         curl htop \
         locales language-pack-bs \
@@ -23,7 +23,8 @@ RUN cp /opt/X11rdp/xrdp_etc/init.d/* /etc/init.d/
 RUN cp /opt/X11rdp/xrdp_etc/pam.d/* /etc/pam.d/
 
 RUN cd /tmp && curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb ;\
-    dpkg -i '/tmp/google-chrome-stable_current_amd64.deb' ; apt-get install -f -y
+    dpkg -i '/tmp/google-chrome-stable_current_amd64.deb' ; apt-get install -f -y ;\
+    rm /tmp/*.deb ; apt-get clean -y
 
 RUN echo "load-module module-xrdp-sink" >> /etc/pulse/default.pa  &\
     echo "load-module module-xrdp-source" >> /etc/pulse/default.pa
@@ -36,6 +37,9 @@ ENV USER_NAME dockerx
 RUN useradd --shell /bin/bash -m -G sudo,users,adm $USER_NAME
 RUN echo "$USER_NAME:$USER_NAME" | chpasswd
 
+RUN echo "LANG=bs_BA.UTF-8" >> /etc/default/locale &&\
+    echo "LC_ALL=bs_BA.UTF-8" >> /etc/default/locale &&\
+    echo "LC_MESSAGES=POSIX" >> /etc/default/locale
 
 RUN echo "export LANG=bs_BA.UTF-8" >> /home/$USER_NAME/.bashrc &&\
     echo "export LC_ALL=bs_BA.UTF-8" >> /home/$USER_NAME/.bashrc &&\
