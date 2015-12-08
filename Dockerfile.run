@@ -9,7 +9,9 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q \
         curl htop \
         locales language-pack-bs \
         lxterminal \
-        openssh-client psmisc 
+        openssh-client psmisc \
+        firefox &&\
+        apt-get clean -y
 
 RUN echo "add tar.gz's from build-xrdp image"
 ADD usr_local.tar.gz /usr/local    
