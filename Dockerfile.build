@@ -5,21 +5,22 @@ MAINTAINER Ernad Husremovic "hernad@bring.out.ba"
 # thank you Csaba Marosi "4bea6c869366227b879ffe4abad50c@gmail.com"
 
 RUN apt-get update && \
-    apt-get build-dep -y pulseaudio && \
-    apt-get install -y dpkg-dev fakeroot && \
-    cd /root && \
-    apt-get source -y pulseaudio && \
-    cd pulseaudio-4.0 && dpkg-buildpackage -rfakeroot -uc -b && \
-    apt-get install --no-install-recommends -y -q \
-        sudo git vim ca-certificates \
-        rxvt-unicode-lite ratpoison \
-        libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
+	    apt-get build-dep -y pulseaudio && \
+	    apt-get install -y dpkg-dev fakeroot && \
+	    cd /root && \
+	    apt-get source -y pulseaudio && \
+	    cd pulseaudio-4.0 && dpkg-buildpackage -rfakeroot -uc -b && \
+	    apt-get install --no-install-recommends -y -q \
+		sudo git vim ca-certificates \
+		rxvt-unicode-lite ratpoison \
+		libssl-dev libpam0g-dev libx11-dev libxfixes-dev libxrandr-dev \
         xfonts-utils \
         libpulse-dev libjson0-dev libsndfile1-dev libspeex-dev libspeexdsp-dev \
         make autoconf automake libtool pkg-config \
         wget bzip2 xsltproc flex bison g++ gettext \
         libxml-sax-expat-perl libxml2-dev python-libxml2 libfuse-dev libdrm-dev
 
-ADD build_1.sh /
+ADD clone_build.sh /
+ADD no_build.sh /
 
-CMD /build_1.sh
+CMD /clone_build.sh
